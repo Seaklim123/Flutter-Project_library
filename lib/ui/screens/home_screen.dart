@@ -74,55 +74,28 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
 
-                // Row(
-                //   children: [
-                //       Expanded(child: SummaryCard(label: 'Return Today',value :'15')),
-                //       Expanded(child: SummaryCard(label: 'Return Today',value :'15')),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                      Expanded(child: SummaryCard(label: 'Return Today',value :'15')),
+                      Expanded(child: SummaryCard(label: 'Return Today',value :'15')),
+                  ],
+                ),
 
-                SizedBox(
-                  height:
-                      120, // A horizontal ListView requires a parent height constraint
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: const [
-                      SummaryCard(label: 'Return Today', value: '15'),
-                      SummaryCard(label: 'Pending Pickup', value: '8'),
-                      SummaryCard(label: 'Overdue Returns', value: '3'),
-                    ],
-                  ),
-                )
+                // SizedBox(
+                //   height:
+                //       120, 
+                //   child: ListView(
+                //     scrollDirection: Axis.horizontal,
+                //     children: const [
+                //       SummaryCard(label: 'Return Today', value: '15'),
+                //       SummaryCard(label: 'Pending Pickup', value: '8'),
+                //       SummaryCard(label: 'Overdue Returns', value: '3'),
+                //     ],
+                //   ),
+                // )
             ],   
         ),
 
-
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.black87,
-
-          type: BottomNavigationBarType.fixed,
-
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(   
-              icon: Icon(Icons.menu_book_outlined),
-              label: "Books", 
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_outlined),
-              label: "Borrow",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: "Profile",
-            ),
-          ],
-        ),
     );
   }
 }

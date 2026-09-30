@@ -1,155 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:library_management/mock_data/book.dart';
+import 'package:library_management/mock_data/category.dart';
+import 'package:library_management/them/mian_color.dart';
+import 'package:library_management/ui/screens/create_book_screen.dart';
+import 'package:library_management/ui/widgets/book_list.dart';
 
-class BookScreen extends StatelessWidget {
-  final Color primaryColor = const Color(0xFFF5B84B);
+class BookScreen extends StatefulWidget {
   const BookScreen({super.key});
 
   @override
+  State<BookScreen> createState() => _BookScreenState();
+}
+
+class _BookScreenState extends State<BookScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text('Book List')
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: 48,
-            margin: EdgeInsets.only(right: 15, left: 15),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF3F4F6),
-              borderRadius: BorderRadius.circular(50),
-            ),
-
-            child: const TextField(
-              decoration: InputDecoration(
-                hintText: "Search...",
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(vertical: 14),
-              ),
-            ),
+        backgroundColor: primaryColor,
+        title: const Text(
+          'Books List',
+          style: TextStyle(
+            fontSize: 20
           ),
-
+        ),  
+        actions: [
           Padding(
-            padding: const EdgeInsets.only(
-              right: 16.0,
-              top: 12.0,
-              bottom: 16.0,
-            ),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            padding: const EdgeInsets.only(right: 10),
+            child: ElevatedButton(
+              onPressed: () async {
+                final newBook = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CreateBookScreen(),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                ),
-                child: const Text(
-                  'Create Book',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ),
+                );
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'ID',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'Title',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'Available',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: Text(
-                    'Action',
-                    style: TextStyle(
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                if (newBook != null) {
+                  setState(() {
+                    books.add(newBook);
+                  });
+                }
+              },
+              child: const Icon(Icons.add),
+            ),
           ),
-        ),
         ],
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.black87,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        child: Column(
+          children: [
+            Container(
+              height: 48,
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 3),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3F4F6),
+                borderRadius: BorderRadius.circular(50),
+              ),
 
-        type: BottomNavigationBarType.fixed,
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: "Search...",
+                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(vertical: 14),
+                ),
+              ),
+            ),
 
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book_outlined),
-            label: "Books",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_outlined),
-            label: "Borrow",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "Profile",
-          ),
-        ],
+            const SizedBox(height: 10),
+            Expanded(child: BookList(books: books, categories: categories)),
+           
+          ],
+        ),
       ),
     );
   }

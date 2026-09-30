@@ -1,7 +1,7 @@
 class Category {
   final int id;
-  final String titile;
-  final List<int> bookId = [];
+  final String title;
+  final List<int> bookIds = [];
 
-  Category({required this.id, required this.titile});
+  Category({required this.id, required this.title});
 }

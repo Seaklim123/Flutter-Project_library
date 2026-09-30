@@ -1,15 +1,18 @@
 class Book {
   final int id;
   final String title;
-  String? authorName;
+  final String description;
+  final String? authorName;
+  final String coverImage;
   final int categoryId;
-  bool isBorrowed;
 
   Book({
     required this.id,
     required this.title,
+    required this.description,
     this.authorName,
+    required this.coverImage,
     required this.categoryId,
-    this.isBorrowed = false,
+
   });
 }
